@@ -1,8 +1,10 @@
 #!/usr/bin/python3
-for i in range(122, 96, -1):
-    c = chr(i)
-    ascii_code = ord(c)
-    if ascii_code % 2 == 0:
-        ascii_code -= 32
-        c = chr(ascii_code)
-        print(c, end="")
+import string
+letters = []
+for i in range (len (string.ascii_lowercase) - 1, -1, -1):
+    if i % 2 == 0:
+        letters.append (string.ascii_lowercase [i].upper ())
+    else:
+        letters.append (string.ascii_lowercase [i])
+        result = "".join (letters)
+        print ("{}".format (result))
