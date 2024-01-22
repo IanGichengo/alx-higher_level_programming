@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+class CustomIndexError(Exception):
+    pass
+
+
 def safe_print_list_integers(my_list=[], x=0):
     count = 0
     try:
@@ -10,9 +14,4 @@ def safe_print_list_integers(my_list=[], x=0):
         print()
         return count
     except IndexError as e:
-        print()
-        print("Traceback (most recent call last):")
-        print("  File \"./2-main.py\", line 14, in <module>")
-        print("    nb_print = safe_print_list_integers(my_list, len(my_list) + 2)")
-        print(f"  {e.__class__.__name__}: {e}")
-        raise e
+        raise CustomIndexError(str(e))
