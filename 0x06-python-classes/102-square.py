@@ -3,15 +3,10 @@
 
 
 class Square:
-    def __init__(self, size=0):
-        """
-        Initializes a new instance of the Square class.
+    """ initialises a new instance of the square class """
 
-        Parameters:
-        - size (float or int, optional): The size of the square (default is 0).
-          Raises a TypeError if size is not a number.
-          Raises a ValueError if size is less than 0.
-        """
+    def __init__(self, size=0):
+
         if not isinstance(size, (float, int)):
             raise TypeError("size must be a number")
         if size < 0:
