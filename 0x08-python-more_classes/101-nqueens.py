@@ -1,80 +1,73 @@
 #!/usr/bin/python3
 
-
+""" Import sys module """
 import sys
 
+""" Check the number of arguments"""
+if len(sys.argv) != 2:
+    print("Usage: nqueens N")
+    sys.exit(1)
 
-def is_safe(board, row, col, n):
-    """
-    Check if it's safe to place a queen at board[row][col]
-    """
-    # Check the column on the left
+""" Check if N is a positive integer"""
+try:
+    N = int(sys.argv[1])
+except ValueError:
+    print("N must be a number")
+    sys.exit(1)
+
+""" Check if N is at least 4"""
+if N < 4:
+    print("N must be at least 4")
+    sys.exit(1)
+
+
+""" Define a function to check if a position is safe"""
+
+
+def is_safe(board, row, col):
+    """ Check the left side of the row """
     for i in range(col):
         if board[row][i] == 1:
             return False
-
-    # Check upper diagonal on the left
+    """ Check the upper left diagonal """
     for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
         if board[i][j] == 1:
             return False
-
-    # Check lower diagonal on the left
-    for i, j in zip(range(row, n, 1), range(col, -1, -1)):
+    """ Check the lower left diagonal """
+    for i, j in zip(range(row, N, 1), range(col, -1, -1)):
         if board[i][j] == 1:
             return False
-
+    """ Return true if no conflict """
     return True
 
 
-def solve_nqueens_util(board, col, n, solutions):
-    """
-    Recursive utility function to solve N Queens problem
-    """
-    if col == n:
-        # All queens are placed successfully, add the solution to the list
-        solution = [[row, col] for row, col in enumerate(board)]
-        solutions.append(solution)
-        return
-
-    for i in range(n):
-        if is_safe(board, i, col, n):
-            board[i][col] = 1  # Place the queen
-
-            solve_nqueens_util(board, col + 1, n, solutions)
-
-            board[i][col] = 0  # Backtrack
+""" Define a function to solve the problem recursively"""
 
 
-def solve_nqueens(n):
-    """
-    Solve the N Queens problem and print the solutions
-    """
-    if not isinstance(n, int):
-        print("N must be a number")
-        sys.exit(1)
-
-    if n < 4:
-        print("N must be at least 4")
-        sys.exit(1)
-
-    board = [[0 for _ in range(n)] for _ in range(n)]
-    solutions = []
-
-    solve_nqueens_util(board, 0, n, solutions)
-
-    for solution in solutions:
+def solve_nqueens(board, col):
+    """ If all queens are placed, print the solution """
+    if col == N:
+        solution = []
+        for i in range(N):
+            for j in range(N):
+                if board[i][j] == 1:
+                    solution.append([i, j])
         print(solution)
+        return
+    """ Try all rows in the current column"""
+    for i in range(N):
+        """ Check if the position is safe """
+        if is_safe(board, i, col):
+            """ Place a queen """
+            board[i][col] = 1
+            """ Recur for the next column """
+            solve_nqueens(board, col + 1)
+            """ Remove the queen """
+            board[i][col] = 0
 
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: nqueens N")
-        sys.exit(1)
+"""Create an empty board """
+board = [[0 for i in range(N)] for j in range(N)]
 
-    try:
-        n = int(sys.argv[1])
-    except ValueError:
-        print("N must be a number")
-        sys.exit(1)
-
-    solve_nqueens(n)
+""" Call the function to solve the problem """
+solve_nqueens(board, 0)
