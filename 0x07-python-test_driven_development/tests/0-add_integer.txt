@@ -1,0 +1,25 @@
+# tests/0-add_integer.txt
+
+# Test Case 1
+Input: 1, 2
+Expected Output: 3
+
+# Test Case 2
+Input: 100, -2
+Expected Output: 98
+
+# Test Case 3
+Input: 2
+Expected Output: 100
+
+# Test Case 4
+Input: 100.3, -2
+Expected Output: 98
+
+# Test Case 5 (Exception)
+Input: 4, "School"
+Expected Output: b must be an integer
+
+# Test Case 6 (Exception)
+Input: None
+Expected Output: a must be an integer
