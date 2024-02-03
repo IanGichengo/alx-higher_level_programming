@@ -1,25 +1,24 @@
-# tests/0-add_integer.txt
+# Test cases for 0-add_integer module
 
-# Test Case 1
-Input: 1, 2
-Expected Output: 3
+# Positive integers
+test_add_integer(10, 20) == 30
+test_add_integer(54, 36) == 90
 
-# Test Case 2
-Input: 100, -2
-Expected Output: 98
+# Negative integers
+test_add_integer(-5, -3) == -8
+test_add_integer(-12, 5) == -7
 
-# Test Case 3
-Input: 2
-Expected Output: 100
+# Zero
+test_add_integer(0, 0) == 0
+test_add_integer(42, 0) == 42
 
-# Test Case 4
-Input: 100.3, -2
-Expected Output: 98
+# Different types
+test_add_integer(10.5, 15) == 25
+test_add_integer(20, 4.2) == 24
 
-# Test Case 5 (Exception)
-Input: 4, "School"
-Expected Output: b must be an integer
+# Default value for b
+test_add_integer(10) == 108
 
-# Test Case 6 (Exception)
-Input: None
-Expected Output: a must be an integer
+# Type errors
+test_add_integer("hello", 10) raises TypeError
+test_add_integer(10, "world") raises TypeError
