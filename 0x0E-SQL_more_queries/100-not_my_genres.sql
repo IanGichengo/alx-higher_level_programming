@@ -5,13 +5,9 @@
 -- You can use a maximum of two SELECT statement
 -- The database name will be passed as an argument of the mysql command
 
-SELECT name
+SELECT tv_genres.name
 FROM tv_genres
-WHERE name NOT IN (
-    SELECT tv_genres.name
-    FROM tv_shows
-    INNER JOIN tv_show_genres ON tv_shows.id = tv_show_genres.tv_show_id
-    INNER JOIN tv_genres ON tv_show_genres.genre_id = tv_genres.id
-    WHERE tv_shows.title = 'Dexter'
-)
-ORDER BY name ASC;
+LEFT JOIN tv_show_genres ON tv_genres.id = tv_show_genres.genre_id
+LEFT JOIN tv_shows ON tv_show_genres.show_id = tv_shows.id
+WHERE tv_shows.title != 'Dexter' OR tv_shows.title IS NULL
+ORDER BY tv_genres.name ASC;
