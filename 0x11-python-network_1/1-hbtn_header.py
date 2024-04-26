@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-"""script takes in a URL, sends a request to the URL, displays X-Request-Id"""
+"""script takes in a URL, sends a request to the URL, displays X-Request"""
 import urllib.request
 import sys
 
-""" Get the URL from the command line arguments """
-url = sys.argv[1]
+if __name__ == "__main__":
+    url = sys.argv[1]
 
-""" Send a request to the URL """
-with urllib.request.urlopen(url) as response:
-    headers = response.info()
-    print(headers.get('X-Request-Id'))
+    with urllib.request.urlopen(url) as response:
+        request_id = response.getheader('X-Request-Id')
+        print(request_id)
