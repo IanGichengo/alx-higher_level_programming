@@ -2,9 +2,12 @@
 import urllib.request
 import sys
 
-if __name__ == "__main__":
-    url = sys.argv[1]
+# Get the URL from the command line arguments
+url = sys.argv[1]
 
-    with urllib.request.urlopen(url) as response:
-        request_id = response.getheader('X-Request-Id')
-        print(request_id)
+# Send a request to the URL
+with urllib.request.urlopen(url) as response:
+    # Get the headers
+    headers = response.info()
+    # Print the value of the X-Request-Id variable
+    print(headers.get('X-Request-Id'))
