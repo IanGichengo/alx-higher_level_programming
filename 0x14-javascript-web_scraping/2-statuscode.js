@@ -1,19 +1,15 @@
-#!/usr/bin/node
-const http = require('http');
-function getStatus (url) {
-  const options = {
-    method: 'GET',
-    hostname: url,
-    port: 80,
-    path: '/'
-  };
-  const req = http.request(options, (res) => {
-    console.log(`Status code: ${res.statusCode}`);
-  });
-  req.on('error', (error) => {
-    console.error(`Error: ${error.message}`);
-  });
-  req.end();
+#!/usr/bin/env node
+'use strict';
+const request = require('request');
+if (process.argv.length !== 3) {
+  console.error('Usage: ./2-statuscode.js <URL>');
+  process.exit(1);
 }
-getStatus('alx-intranet.hbtn.io/status');
-getStatus('alx-intranet.hbtn.io/doesnt_exist');
+const url = process.argv[2];
+request.get(url, (error, response) => {
+  if (error) {
+    console.error('Error:', error);
+    process.exit(1);
+  }
+  console.log(`code: ${response.statusCode}`);
+});
