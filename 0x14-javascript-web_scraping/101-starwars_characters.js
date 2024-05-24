@@ -1,16 +1,20 @@
 #!/usr/bin/node
-const axios = require('axios');
-async function getCharacterName (url) {
-  const response = await axios.get(url);
-  return response.data.name;
+const request = require('request');
+function getCharacterName (url) {
+  request(url, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      const data = JSON.parse(body);
+      console.log(data.name);
+    }
+  });
 }
-async function printCharacters (movieId) {
+function getMovieCharacters (movieId) {
   const url = `https://swapi.dev/api/films/${movieId}/`;
-  const response = await axios.get(url);
-  const data = response.data;
-  for (const characterUrl of data.characters) {
-    const name = await getCharacterName(characterUrl);
-    console.log(name);
-  }
+  request(url, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      const data = JSON.parse(body);
+      data.characters.forEach(getCharacterName);
+    }
+  });
 }
-printCharacters('3');
+getMovieCharacters(3);
